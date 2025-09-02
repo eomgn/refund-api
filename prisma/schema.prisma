@@ -9,3 +9,52 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+
+// ### USERS ###
+
+enum UserRole {
+  employee
+  manager
+}
+model User {
+  id String @id @default(uuid())
+  name String
+  email String @unique
+  password String
+
+  role UserRole
+
+  refunds Refund[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
+}
+
+// ### REFUNDS ###
+
+enum Category {
+  food
+  others
+  services
+  transport
+  accommodation
+}
+
+model Refund {
+  id String @id @default(uuid())
+  name String
+  amount Float
+  category Category
+  filename String
+
+  userId String @map("user_id")
+  user User @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt
+
+  @@map("refunds")
+}
