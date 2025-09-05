@@ -49,6 +49,35 @@ export class RefundsController {
   // ### INDEX ###
 
   async index(request: Request, response: Response) {
-    response.json();
+    // schema para o que sera passado na requisicao
+    const querySchema = z.object({
+      name: z.string().optional().default(""),
+    });
+
+    // recuperando 'query' passada na requisicao
+    const { name } = querySchema.parse(request.query);
+
+    // recuperando array de 'refund' mas se houver parametro realizar filtro com 'where' e 'like'(contains) alem de incluir o 'user' que criou o 'refund' e ordenar
+    const refunds = await prisma.refund.findMany({
+      where: {
+        user: {
+          name: {
+            contains: name.trim(),
+          },
+        },
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
+      orderBy: { createdAt: "desc" },
+    });
+
+    response.status(201).json(refunds);
   }
 }
