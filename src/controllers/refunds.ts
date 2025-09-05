@@ -5,6 +5,7 @@ import { prisma } from "@/database/prisma";
 import { AppError } from "@/utils/AppError";
 
 export class RefundsController {
+  // ### CREATE ###
   async create(request: Request, response: Response) {
     const bodySchema = z.object({
       name: z
@@ -41,6 +42,12 @@ export class RefundsController {
       },
     });
 
-    return response.json(refund);
+    return response.status(201).json(refund);
+  }
+
+  // ### INDEX ###
+
+  async index(request: Request, response: Response) {
+    response.json({ message: "ok" });
   }
 }
