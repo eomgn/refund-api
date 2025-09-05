@@ -32,6 +32,7 @@ export class RefundsController {
       throw new AppError("Unauthorized", 401);
     }
 
+    // criando refund no banco de dados
     const refund = await prisma.refund.create({
       data: {
         name,
@@ -48,6 +49,6 @@ export class RefundsController {
   // ### INDEX ###
 
   async index(request: Request, response: Response) {
-    response.json({ message: "ok" });
+    response.json();
   }
 }

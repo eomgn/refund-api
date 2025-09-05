@@ -33,7 +33,7 @@ export class UsersController {
         .regex(/[0-9]/, "A senha precisa conter pelo menos um número."),
       role: z
         .enum([UserRole.employee, UserRole.manager])
-        .default(UserRole.manager),
+        .default(UserRole.employee),
     });
 
     const { name, email, password, role } = bodySchema.parse(request.body);
