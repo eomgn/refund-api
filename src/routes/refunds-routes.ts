@@ -6,8 +6,13 @@ import { RefundsController } from "@/controllers/refunds";
 const refundsController = new RefundsController();
 
 //middlewares
+import { verifyUserAuthorization } from "@/middleware/verify-user-authorization";
 
 // routes
-refundsRoutes.post("/", refundsController.create);
+refundsRoutes.post(
+  "/",
+  verifyUserAuthorization(["employee"]),
+  refundsController.create
+);
 
 export { refundsRoutes };

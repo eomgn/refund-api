@@ -21,8 +21,8 @@ export function ensureAutheticated(
       throw new AppError("JWT Token not found", 401);
     }
 
-    // desestruturando token mas removendo Bearer: [Bearer, token]
-    const [bearer, token] = authHeader;
+    // desestruturando token mas removendo Bearer: [Bearer, token] com split(" ")
+    const [bearer, token] = authHeader.split(" ");
 
     // verificando token passado
     const { role, sub: user_id } = verify(
