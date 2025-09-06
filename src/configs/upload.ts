@@ -12,7 +12,8 @@ const UPLOADS_FOLDER = path.resolve(TPM_FOLDER, "uploads");
 // definindo tamanho máximo do arquivo: sendo definido entao em 3 megas
 // 1KB = 1024
 // 1MB = 1024 * 1024 (ou seja 1024 elevado a 2)
-const MAX_FILE_SIZE = 1024 * 1024 * 3; //  3MB
+const MAX_SIZE = 3;
+const MAX_FILE_SIZE = 1024 * 1024 * MAX_SIZE; //  3MB
 
 // definindo tipos de arquivos aceitos
 const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
@@ -37,6 +38,7 @@ const MULTER = {
 export default {
   TPM_FOLDER,
   UPLOADS_FOLDER,
+  MAX_SIZE,
   MAX_FILE_SIZE,
   ACCEPTED_IMAGE_TYPES,
   MULTER,
