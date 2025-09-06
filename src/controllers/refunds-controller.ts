@@ -47,7 +47,6 @@ export class RefundsController {
   }
 
   // ### INDEX ###
-
   async index(request: Request, response: Response) {
     // schema para o que sera passado na requisicao
     const querySchema = z.object({
@@ -106,5 +105,30 @@ export class RefundsController {
       totalRecords,
       totalPages,
     });
+  }
+
+  // ### SHOW ###
+  async show(request: Request, response: Response) {
+    const paramsSchema = z.object({
+      id: z.string().uuid(),
+    });
+
+    const { id } = paramsSchema.parse(request.params);
+
+    // obtendo registro pelo 'id' passado no parametro da rota
+    const refund = await prisma.refund.findFirst({
+      where: { id },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+          },
+        },
+      },
+    });
+
+    response.json(refund);
   }
 }
