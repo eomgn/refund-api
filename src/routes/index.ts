@@ -7,6 +7,7 @@ import { ensureAutheticated } from "@/middleware/ensure-authenticated";
 // arquivos de rotas
 import { usersRoutes } from "@/routes/users-routes";
 import { refundsRoutes } from "./refunds-routes";
+import { uploadsRoutes } from "./uploads-routes";
 import { sessionsRoutes } from "@/routes/sessions-routes";
 
 // rotas publicas
@@ -18,5 +19,6 @@ routes.use("/sessions", sessionsRoutes);
 routes.use(ensureAutheticated);
 
 routes.use("/refunds", refundsRoutes);
+routes.use("/uploads", uploadsRoutes);
 
 export { routes };

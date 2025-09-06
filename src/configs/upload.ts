@@ -7,7 +7,7 @@ import crypto from "node:crypto";
 //  ./../../tpm -> pastas: configs/src/raiz do projeto
 const TPM_FOLDER = path.resolve(__dirname, "..", "..", "tmp"); // o 'resolve' é para garantir que o código funcione em diferentes sistemas operacionais
 
-const UPLOADS_FOLDER = path.relative(TPM_FOLDER, "uploads");
+const UPLOADS_FOLDER = path.resolve(TPM_FOLDER, "uploads");
 
 // definindo  tamanho máximo do arquivo: sendo definido entao em 3 megas
 const MAX_FILE_SIZE = 1024 * 1024 * 3; //  3MB
@@ -17,7 +17,7 @@ const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"];
 
 // o 'diskStorage' do multer é o que permite que seja manipulado o arquivo no disco onde a api esta rodando
 const MULTER = {
-  store: multer.diskStorage({
+  storage: multer.diskStorage({
     // pasta temporaria
     destination: TPM_FOLDER,
 
