@@ -32,3 +32,10 @@ const MULTER = {
 };
 
 // o multer é middleware que sera utilizado em uma rota que ira receber algum arquivo
+export default {
+  TPM_FOLDER,
+  UPLOADS_FOLDER,
+  MAX_FILE_SIZE,
+  ACCEPTED_IMAGE_TYPES,
+  MULTER,
+};
