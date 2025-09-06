@@ -52,13 +52,20 @@ export class RefundsController {
     // schema para o que sera passado na requisicao
     const querySchema = z.object({
       name: z.string().optional().default(""),
+      page: z.coerce.number().optional().default(1),
+      perPage: z.coerce.number().optional().default(10),
     });
 
     // recuperando 'query' passada na requisicao
-    const { name } = querySchema.parse(request.query);
+    const { name, page, perPage } = querySchema.parse(request.query);
+
+    // calculando os valores de 'skip' para paginacao
+    const skip = (page - 1) * perPage;
 
     // recuperando array de 'refund' mas se houver parametro realizar filtro com 'where' e 'like'(contains) alem de incluir o 'user' que criou o 'refund' e ordenar
     const refunds = await prisma.refund.findMany({
+      skip,
+      take: perPage,
       where: {
         user: {
           name: {
@@ -78,6 +85,26 @@ export class RefundsController {
       orderBy: { createdAt: "desc" },
     });
 
-    response.status(201).json(refunds);
+    // obtendo o total de registros para cálcular o número de páginas com 'count' do prisma
+    const totalRecords = await prisma.refund.count({
+      where: {
+        user: {
+          name: {
+            contains: name.trim(),
+          },
+        },
+      },
+    });
+
+    // obtendo o total de paginas
+    const totalPages = Math.ceil(totalRecords / perPage);
+
+    response.status(201).json({
+      refunds,
+      page,
+      perPage,
+      totalRecords,
+      totalPages,
+    });
   }
 }
