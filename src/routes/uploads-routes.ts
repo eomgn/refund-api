@@ -12,7 +12,7 @@ const uploadsController = new UploadsController();
 import { verifyUserAuthorization } from "@/middleware/verify-user-authorization";
 
 import multer from "multer";
-const upload = multer(uploadConfig.MULTER);
+const upload = multer(uploadConfig.MULTER); // configuracao do multer
 
 // routes
 uploadsRoutes.use(verifyUserAuthorization(["employee"])); // aplicando o middleware para todas as rotas

@@ -9,7 +9,9 @@ const TPM_FOLDER = path.resolve(__dirname, "..", "..", "tmp"); // o 'resolve' é
 
 const UPLOADS_FOLDER = path.resolve(TPM_FOLDER, "uploads");
 
-// definindo  tamanho máximo do arquivo: sendo definido entao em 3 megas
+// definindo tamanho máximo do arquivo: sendo definido entao em 3 megas
+// 1KB = 1024
+// 1MB = 1024 * 1024 (ou seja 1024 elevado a 2)
 const MAX_FILE_SIZE = 1024 * 1024 * 3; //  3MB
 
 // definindo tipos de arquivos aceitos
